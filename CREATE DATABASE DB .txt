@@ -1,0 +1,164 @@
+CREATE DATABASE DB 
+
+DROP DATABASE DB
+
+CREATE TABLE Employee (
+    EmployeeID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+     Age int ,
+     Email varchar(255)
+); 
+
+ALTER TABLE Employee
+ADD UNIQUE (EmployeeID);
+
+--DROP TABLE Employee
+--TRUNCATE TABLE Employee
+
+
+/* 
+ALTER TABLE Employee
+ADD phone int; 
+
+ALTER TABLE Employee
+DROP COLUMN LastName; 
+
+*/
+
+SELECT * FROM Employee
+
+INSERT INTO Employee
+VALUES (1, 'ALNAJJAR', 'Lena', 22,'lenaalnajar20@yahoo.com');
+
+INSERT INTO Employee
+VALUES (2, 'ALNA', 'Layan', 34,'LayanALNA20@yahoo.com');
+
+INSERT INTO Employee
+VALUES (3, 'RAK', 'LOLO', 44,'LayanRAK20@yahoo.com');
+
+INSERT INTO Employee
+VALUES (4, 'AHMAD', 'ESAM', 21,'AHMADALNA20@yahoo.com');
+
+
+UPDATE Employee
+SET LastName='NAJAR'
+WHERE  EmployeeID= 4;
+
+DELETE FROM Employee WHERE LastName='ALNAJJAR' AND  EmployeeID =2 ;
+
+DELETE FROM Employee WHERE EmployeeID =2 ;
+
+SELECT TOP 3 * FROM Employee;
+
+SELECT * FROM Employee
+ORDER BY  Age ASC ,EmployeeID DESC;
+
+SELECT * FROM Employee
+WHERE FirstName NOT IN ('alnajjar', 'alkatib');
+
+
+SELECT MIN( Age) AS SmallestAge
+FROM Employee;
+
+SELECT MIN( Age) AS SmallestAge
+FROM Employee GROUP BY LastName;
+
+SELECT COUNT(*) FROM Employee
+
+SELECT SUM(EmployeeID) FROM Employee
+
+SELECT AVG(Age) AS TOTAL FROM Employee
+
+
+
+SELECT * FROM Employee
+WHERE LastName LIKE 'A%';
+
+SELECT * FROM Employee
+WHERE FirstName LIKE 'L_L_';
+
+SELECT * FROM Employee
+WHERE Email LIKE '%R%';
+
+
+SELECT * FROM Employee
+WHERE FirstName IN ('alnajjar', 'alkatib');
+
+SELECT * FROM Employee
+WHERE Age BETWEEN 12 AND 25;
+
+
+SELECT * FROM Employee
+WHERE Age NOT BETWEEN 12 AND 25;
+
+CREATE TABLE Manegeremp(
+    ManegerID int NOT NULL PRIMARY KEY,
+    LastNameS varchar(255),
+    FirstNameS varchar(255),
+     AgeManeger int ,
+     EmailManeger varchar(255)
+); 
+
+SELECT * FROM Manegeremp
+
+INSERT INTO Manegeremp
+VALUES (1,'NNNN', 'POP', 22,'POP@yahoo.com');
+
+INSERT INTO Manegeremp
+VALUES ( 2,'ALMK', 'LAK', 34,'ALMK@yahoo.com');
+
+INSERT INTO Manegeremp
+VALUES (3, 'HUJY', 'JAKA', 44,'UJY@yahoo.com');
+
+INSERT INTO Manegeremp
+VALUES (4,'ALHASSAN', 'MOHAMMAD', 21,'ALHASSAN@yahoo.com');
+
+
+SELECT  FirstName, LastName
+FROM Employee
+INNER JOIN Manegeremp ON Employee.EmployeeID= Manegeremp.ManegerID;
+
+SELECT  FirstName
+FROM Manegeremp
+LEFT JOIN Employee ON Employee.EmployeeID= Manegeremp.ManegerID;
+
+SELECT  FirstNameS, EmailManeger ,Email
+FROM Manegeremp
+RIGHT JOIN Employee ON Employee.EmployeeID= Manegeremp.ManegerID;
+
+SELECT  FirstNameS ,EmailManeger ,Email
+FROM Manegeremp
+FULL JOIN Employee ON Employee.EmployeeID= Manegeremp.ManegerID;
+
+
+SELECT LastName FROM Employee
+UNION 
+SELECT LastNameS FROM Manegeremp
+
+SELECT LastName FROM Employee
+UNION ALL
+SELECT LastNameS FROM Manegeremp
+
+
+SELECT COUNT(ManegerID), LastNameS
+FROM Manegeremp
+GROUP BY LastNameS;
+
+ALTER TABLE Manegeremp
+ADD CHECK (Age>=18);
+
+/* 
+ALTER TABLE Manegeremp
+ALTER COLUMN FirstNameS SET DEFAULT 'null';
+*/
+
+
+CREATE VIEW [new view] AS
+SELECT  FirstNameS, AgeManeger
+FROM Manegeremp
+WHERE FirstNameS = 'POP';
+
+
+SELECT * FROM  [new view]
+
